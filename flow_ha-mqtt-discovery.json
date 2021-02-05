@@ -1,0 +1,247 @@
+[
+    {
+        "id": "3ac159e5.c3d7d6",
+        "type": "tab",
+        "label": "HA MQTT Discovery",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5f4046a0.d80838",
+        "type": "comment",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Homeassistant MQTT Discovery",
+        "info": "Set device defaults to use this flow",
+        "x": 350,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7a0c86bf.55af98",
+        "type": "link in",
+        "z": "3ac159e5.c3d7d6",
+        "name": "HA MQTT",
+        "links": [
+            "ff9f920.872f37",
+            "53ba033a.2de20c",
+            "76cbea82.27ce74"
+        ],
+        "x": 235,
+        "y": 520,
+        "wires": [
+            [
+                "1327de01.9690a2"
+            ]
+        ]
+    },
+    {
+        "id": "21487965.fc9d36",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Set defaults",
+        "func": "// See: https://www.home-assistant.io/docs/mqtt/discovery/\n\n// PREPARE DISCOVERY TOPIC\n//\ndiscovery_prefix = \"homeassistant\";\n\n// <component>: One of the supported MQTT components, eg. sensor, binary_sensor\ncomponent = \"sensor\";\n\n// <node_id>: ID of the node providing the topic, this is not used by Home Assistant \n// but may be used to structure the MQTT topic. The ID of the node must only consist\n// of characters from the character class [a-zA-Z0-9_-] (alphanumerics, underscore\n// and hyphen).\nnode_id = msg.device[\"type\"];\n\n// <object_id>: The ID of the device. This is only to allow for separate topics for\n// each device and is not used for the entity_id. The ID of the device must only \n// consist of characters from the character class [a-zA-Z0-9_-] (alphanumerics, \n// underscore and hyphen).\n\n\n// DEFAULT SETTINGS\n//\nmsg.ha_mqtt = {\n    // DEFAULTS\n    \"topic_prefix\": discovery_prefix + \"/\" + component + \"/\" + node_id,\n    \n    // INPUT VALUES\n    \"selectValue\": msg.selectValue,\n    \"measurement\": msg.measurement,\n    \"unit\": msg.unit,\n    \"component\": component,\n\n    \"device\": {\n         \"name\": msg.device[\"name\"],\n         \"model\": msg.device[\"model\"],\n         \"manufacturer\": msg.device[\"manufacturer\"],\n         //\"connections\": msg.device[\"connections\"],\n         \"identifiers\": msg.device[\"identifiers\"]\n        }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 590,
+        "y": 580,
+        "wires": [
+            [
+                "d66031c3.0f4cc"
+            ]
+        ]
+    },
+    {
+        "id": "455f9cbd.89d584",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "HA MQTT Set Device",
+        "func": "// DEFAULT SETTINGS\nmsg.device = {\n    \"type\": \"heatpump\",\n\n    // DEVICE INFORMATION\n    \"name\": \"Lüftungsintegralsystem\",\n    \"model\": \"LWZ504E\",\n    \"manufacturer\": \"Stiebel Eltron\",\n    \"connections\": [['mac', '02:5b:26:a8:dc:12']],\n    //device_identifiers = [['serial', '233514 9029128631']];\n    \"identifiers\": \"233514 9029128631\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 320,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1327de01.9690a2",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Check input",
+        "func": "error_text = \"\";\n\n// Derive \"mqtt_topic_prefix\"\nif (typeof msg.selectValue === 'undefined' || msg.selectValue == \"\")\n{\n    error_text = \"msg.selectValue is empty!\";\n}\n// Derive \"device_class\"\nelse if (typeof msg.measurement === 'undefined' || msg.measurement == \"\")\n{\n    error_text = \"msg.measurement is empty!\";\n}\n// Derive \"unit_of_measurement\"\nelse if (typeof msg.unit === 'undefined' || msg.unit == \"\")\n{\n    error_text = \"msg.unit is empty!\";\n}\n// Device information set?\nelse if ( typeof msg.device === 'undefined' || msg.device.length == 0)\n{\n    error_text = \"msg.device not defined!\";\n}\n\nif (error_text != \"\")\n{\n    node.status({fill:\"red\",shape:\"ring\",text:error_text});\n    node.warn(error_text);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "21487965.fc9d36"
+            ]
+        ]
+    },
+    {
+        "id": "d66031c3.0f4cc",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Prepare MQTT topic prefix and component name",
+        "func": "function upperCaseFirstLetter(string) {\n    return string.charAt(0).toUpperCase() + string.slice(1);\n}\n\nfunction lowerCaseAllWordsExceptFirstLetters(string) {\n    return string.replace(/\\S*/g, function (word) {\n        return word.charAt(0) + word.slice(1).toLowerCase();\n    });\n}\n\nconst umlautMap = {\n  '\\u00dc': 'UE',\n  '\\u00c4': 'AE',\n  '\\u00d6': 'OE',\n  '\\u00fc': 'ue',\n  '\\u00e4': 'ae',\n  '\\u00f6': 'oe',\n  '\\u00df': 'ss',\n}\n\nfunction replaceUmlaute(str) {\n  return str\n    .replace(/[\\u00dc|\\u00c4|\\u00d6][a-z]/g, (a) => {\n      const big = umlautMap[a.slice(0, 1)];\n      return big.charAt(0) + big.charAt(1).toLowerCase() + a.slice(1);\n    })\n    .replace(new RegExp('['+Object.keys(umlautMap).join('|')+']',\"g\"),\n      (a) => umlautMap[a]\n    );\n}\n\n// INPUTS\nselectValue = msg.ha_mqtt[\"selectValue\"];\n\nmsg.ha_mqtt[\"comp_name\"] = upperCaseFirstLetter(lowerCaseAllWordsExceptFirstLetters(selectValue));\nha_comp_name_lc = selectValue.toLowerCase().replace(/\\ /g, \"_\").replace(/\\./g, \"\");\nmsg.ha_mqtt[\"comp_name_lc\"] = replaceUmlaute(ha_comp_name_lc);\n\nmsg.ha_mqtt[\"topic_prefix\"] += \"/\" + msg.ha_mqtt[\"comp_name_lc\"];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 830,
+        "y": 640,
+        "wires": [
+            [
+                "e6af78e1.b1e1b8",
+                "24494850.e667c8"
+            ]
+        ]
+    },
+    {
+        "id": "e6af78e1.b1e1b8",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Define MQTT topic",
+        "func": "// Setup message\nmsg.topic = msg.ha_mqtt[\"topic_prefix\"] + \"/state\";\n\n// msg.payload contains already the new value\n\n// binary sensor will receive an instant state update after subscription and HA will display the correct state on startup\nmsg.retain = true;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1170,
+        "y": 620,
+        "wires": [
+            [
+                "2ab6fe45.3b7322"
+            ]
+        ]
+    },
+    {
+        "id": "8a0beafc.df2cb8",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Finalize discovery msg",
+        "func": "// Setup message\nmsg.topic = msg.ha_mqtt[\"topic_prefix\"] + \"/config\";\n\n// Build discovery payload\n// See: https://www.home-assistant.io/docs/mqtt/discovery/\nmsg.payload = {\n   \"name\": msg.ha_mqtt[\"comp_name\"],\n   \"device\": msg.ha_mqtt[\"device\"],\n   \"unique_id\": msg.ha_mqtt[\"unique_id\"],\n   \"state_topic\": msg.ha_mqtt[\"topic_prefix\"] + \"/state\"\n}\nif (msg.ha_mqtt[\"device_class\"] != \"none\" )\n    msg.payload[\"device_class\"] = msg.ha_mqtt[\"device_class\"];\nif (msg.ha_mqtt[\"comp_unit\"] != \"\" )\n    msg.payload[\"unit_of_measurement\"] = msg.ha_mqtt[\"comp_unit\"];\n\n// binary sensor will receive an instant state update after subscription and HA will display the correct state on startup\nmsg.retain = true;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1440,
+        "y": 680,
+        "wires": [
+            [
+                "2f1ef196.4559be",
+                "8e3a10cd.46ed3"
+            ]
+        ]
+    },
+    {
+        "id": "24494850.e667c8",
+        "type": "function",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Prepare component details",
+        "func": "// COMPONENT DETAILS\nswitch (msg.ha_mqtt[\"measurement\"]) {\n  case \"temperature\":\n    msg.ha_mqtt[\"device_class\"] = \"temperature\";\n    break;\n  case \"humidity\":\n    msg.ha_mqtt[\"device_class\"] = \"humidity\";\n    break;\n  case \"frequency\":\n    msg.ha_mqtt[\"device_class\"] = \"none\";\n    break;\n  case \"energy\":\n    msg.ha_mqtt[\"device_class\"] = \"energy\";\n    break;\n  case \"power\":\n    msg.ha_mqtt[\"device_class\"] = \"power\";\n    break;\n  case \"volume_flow\":\n  case \"state\":\n    msg.ha_mqtt[\"device_class\"] = \"none\";\n    break;\n  default:\n    error_text = \"Unknown measurement: \" + msg.ha_mqtt[\"measurement\"];\n    node.status({fill:\"red\",shape:\"ring\",text:error_text});\n    node.warn(error_text);\n    break;\n}\n\n\n// '%'' - humidity, '°C' - degree celcius\nswitch (msg.ha_mqtt[\"unit\"]) {\n  case \"celsius\": // temperature\n    msg.ha_mqtt[\"comp_unit\"] = \"°C\";\n    break;\n  case \"percent\": // humidity\n    msg.ha_mqtt[\"comp_unit\"] = \"%\"\n    break;\n  case \"hertz\": // frequency\n    msg.ha_mqtt[\"comp_unit\"] = \"Hz\"\n    break;\n  case \"kWh\": // energy\n    msg.ha_mqtt[\"comp_unit\"] = \"kWh\"\n    break;\n  case \"W\": // power\n    msg.ha_mqtt[\"comp_unit\"] = \"W\"\n    break;\n  case \"litre_per_min\": // volume_flow\n    msg.ha_mqtt[\"comp_unit\"] = \"l/min\"\n    break;\n  case \"value\": // state\n    msg.ha_mqtt[\"comp_unit\"] = \"\"\n    break;\n  default:\n    error_text = \"Unknown unit: \" + msg.ha_mqtt[\"unit\"];\n    node.status({fill:\"red\",shape:\"ring\",text:error_text});\n    node.warn(error_text);\n    break;\n}\nmsg.ha_mqtt[\"unique_id\"] = msg.ha_mqtt[\"component\"] + \"_\" + msg.ha_mqtt[\"comp_name_lc\"] + \"_\" + msg.ha_mqtt[\"device_class\"];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1200,
+        "y": 680,
+        "wires": [
+            [
+                "8a0beafc.df2cb8"
+            ]
+        ]
+    },
+    {
+        "id": "2f1ef196.4559be",
+        "type": "delay",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Limit config msgs",
+        "pauseType": "timed",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "hour",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1690,
+        "y": 680,
+        "wires": [
+            [
+                "2ab6fe45.3b7322"
+            ]
+        ]
+    },
+    {
+        "id": "2ab6fe45.3b7322",
+        "type": "mqtt out",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Publish",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "3d57c91f.bdd2d6",
+        "x": 1920,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "8e3a10cd.46ed3",
+        "type": "debug",
+        "z": "3ac159e5.c3d7d6",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "bd9a5efe.f41568",
+        "type": "comment",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Add this node to the flow providing the data",
+        "info": "Add before \"link out\" node",
+        "x": 380,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "3d57c91f.bdd2d6",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "jarvis.netzwelt",
+        "port": "1883",
+        "clientid": "node-red",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]

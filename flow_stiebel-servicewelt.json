@@ -1,1 +1,1232 @@
-[{"id":"c8d3d606.44ee88","type":"tab","label":"Stiebel Servicewelt","disabled":false,"info":""},{"id":"e6eb846f.f97488","type":"http request","z":"c8d3d606.44ee88","name":"Get ANLAGE","method":"GET","ret":"txt","paytoqs":false,"url":"http://servicewelt.netzwelt/?s=1,0","tls":"","persist":false,"proxy":"","authType":"","x":510,"y":440,"wires":[["10195ff0.b3b2d","96e40e4.47f48f","3a7da85a.2b5ca8","bebfe889.858e88","1992c214.2b5abe","7318cb2d.09aa44","6a68547c.7f18cc","cb250045.8b1ef","9cd9fb34.df97d8","a1f4e3b.751e32","eab83bf9.5f1a38","d8530238.c600b","f7b904e2.6aa648","8a927115.97ed8"]]},{"id":"9f4a9a89.64cbb8","type":"inject","z":"c8d3d606.44ee88","name":"Make request","topic":"","payload":"","payloadType":"str","repeat":"60","crontab":"","once":false,"onceDelay":0.1,"x":200,"y":640,"wires":[["e6eb846f.f97488","b0c51e1b.1869e","83306588.424498"]]},{"id":"10195ff0.b3b2d","type":"change","z":"c8d3d606.44ee88","name":"AUSSENTEMPERATUR","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"AUSSENTEMPERATUR","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":790,"y":140,"wires":[["92417ca5.d3612"]]},{"id":"96e40e4.47f48f","type":"change","z":"c8d3d606.44ee88","name":"RAUMISTTEMP. HK1","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"RAUMISTTEMP. HK1","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":200,"wires":[["92417ca5.d3612"]]},{"id":"3a7da85a.2b5ca8","type":"change","z":"c8d3d606.44ee88","name":"RAUMSOLLTEMP. HK1","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"RAUMSOLLTEMP. HK1","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":790,"y":240,"wires":[["92417ca5.d3612"]]},{"id":"4430f833.20c278","type":"mqtt out","z":"c8d3d606.44ee88","name":"Publish","topic":"","qos":"","retain":"","broker":"3d57c91f.bdd2d6","x":2040,"y":800,"wires":[]},{"id":"71430440.8db5ec","type":"influxdb out","z":"c8d3d606.44ee88","influxdb":"d753f9e4.930f78","name":"Store to InfluxDB","measurement":"","precision":"","retentionPolicy":"","x":2090,"y":680,"wires":[]},{"id":"a30d5dba.1d48f","type":"mqtt in","z":"c8d3d606.44ee88","name":"","topic":"stiebel","qos":"2","datatype":"auto","broker":"3d57c91f.bdd2d6","x":1190,"y":100,"wires":[["51f9c38b.41e09c"]]},{"id":"51f9c38b.41e09c","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":1330,"y":100,"wires":[]},{"id":"1f6d02.afae72fe","type":"change","z":"c8d3d606.44ee88","name":"Format for MQTT","rules":[{"t":"set","p":"topic","pt":"msg","to":"\"stiebel/\" & $lowercase(selectValue)","tot":"jsonata"},{"t":"change","p":"topic","pt":"msg","from":" ","fromt":"str","to":"_","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1850,"y":800,"wires":[["58124fc8.6a774","4430f833.20c278"]]},{"id":"58124fc8.6a774","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"topic &': ' & payload","targetType":"jsonata","x":2030,"y":760,"wires":[]},{"id":"bebfe889.858e88","type":"change","z":"c8d3d606.44ee88","name":"WW-ISTTEMP.","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"WW-ISTTEMP.","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":760,"y":420,"wires":[["92417ca5.d3612"]]},{"id":"1992c214.2b5abe","type":"change","z":"c8d3d606.44ee88","name":"WW-SOLLTEMP.","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"WW-SOLLTEMP.","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":460,"wires":[["92417ca5.d3612"]]},{"id":"cb250045.8b1ef","type":"change","z":"c8d3d606.44ee88","name":"ZULUFT IST LÜFTERDREHZAHL","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"ZULUFT IST LÜFTERDREHZAHL","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":820,"y":800,"wires":[["417c2a5d.9d0534"]]},{"id":"9cd9fb34.df97d8","type":"change","z":"c8d3d606.44ee88","name":"ABLUFT IST LÜFTERDREHZAHL","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"ABLUFT IST LÜFTERDREHZAHL","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":820,"y":840,"wires":[["417c2a5d.9d0534"]]},{"id":"7318cb2d.09aa44","type":"change","z":"c8d3d606.44ee88","name":"RAUMFEUCHTE HK1","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"RAUMFEUCHTE HK1","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":780,"y":540,"wires":[["1de83692.513bb9"]]},{"id":"6a68547c.7f18cc","type":"change","z":"c8d3d606.44ee88","name":"HEIZSTUFE","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"HEIZSTUFE","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":750,"y":1000,"wires":[["7d6f91e3.43462"]]},{"id":"ea6fdae.3b7fb28","type":"comment","z":"c8d3d606.44ee88","name":"Temperature Measurements","info":"","x":1140,"y":180,"wires":[]},{"id":"8b451f22.99994","type":"comment","z":"c8d3d606.44ee88","name":"Humidity Measurements","info":"","x":1130,"y":500,"wires":[]},{"id":"1de83692.513bb9","type":"change","z":"c8d3d606.44ee88","name":"Measure to 'humidity'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"humidity","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"percent","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1120,"y":540,"wires":[["57a052eb.ceb21c"]]},{"id":"7ecb2958.0669f8","type":"html","z":"c8d3d606.44ee88","name":"Parse value","property":"payload","outproperty":"payload","tag":"","ret":"text","as":"single","x":1530,"y":660,"wires":[["c14c91d0.8eb1"]]},{"id":"57a052eb.ceb21c","type":"template","z":"c8d3d606.44ee88","name":"Build selector","field":"select","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"tr td:contains('{{selectValue}}') + td","output":"str","x":1480,"y":600,"wires":[["7ecb2958.0669f8"]]},{"id":"c14c91d0.8eb1","type":"change","z":"c8d3d606.44ee88","name":"Convert to number","rules":[{"t":"set","p":"payload","pt":"msg","to":"$substringBefore(payload[0], ' ')","tot":"jsonata"},{"t":"change","p":"payload","pt":"msg","from":",","fromt":"str","to":".","tot":"str"},{"t":"set","p":"payload","pt":"msg","to":"$number(payload)","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":1590,"y":720,"wires":[["d6fde7e8.f3ed58","1f6d02.afae72fe"]]},{"id":"e3d412ea.8d611","type":"comment","z":"c8d3d606.44ee88","name":"Frequency Measurements","info":"","x":1130,"y":780,"wires":[]},{"id":"d6fde7e8.f3ed58","type":"change","z":"c8d3d606.44ee88","name":"Format for InfluxDB","rules":[{"t":"set","p":"payload","pt":"msg","to":"[\t   {\t       $string(msg.unit): $number(msg.payload)\t   },\t   {\t       \"location\": $string($lowercase(msg.selectValue))\t   }\t]","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":1850,"y":680,"wires":[["71430440.8db5ec","21d56c6a.20f804"]]},{"id":"2dc7bfbf.91831","type":"comment","z":"c8d3d606.44ee88","name":"Multistate Measurements","info":"","x":1130,"y":960,"wires":[]},{"id":"92417ca5.d3612","type":"change","z":"c8d3d606.44ee88","name":"Measure 'temperature'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"temperature","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"celsius","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1120,"y":220,"wires":[["57a052eb.ceb21c"]]},{"id":"417c2a5d.9d0534","type":"change","z":"c8d3d606.44ee88","name":"Measure 'frequency'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"frequency","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"hertz","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1120,"y":820,"wires":[["57a052eb.ceb21c"]]},{"id":"7d6f91e3.43462","type":"change","z":"c8d3d606.44ee88","name":"Measure 'state'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"state","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"value","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1100,"y":1000,"wires":[["57a052eb.ceb21c"]]},{"id":"21d56c6a.20f804","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":2070,"y":640,"wires":[]},{"id":"a1f4e3b.751e32","type":"change","z":"c8d3d606.44ee88","name":"ENERGIEMANAGEMENT","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"ENERGIEMANAGEMENT","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":790,"y":1140,"wires":[["b81c86dd.1db038"]]},{"id":"e0f2760.9462f88","type":"http request","z":"c8d3d606.44ee88","name":"Get STATUS","method":"GET","ret":"txt","paytoqs":false,"url":"http://servicewelt/?s=2,0","tls":"","persist":false,"proxy":"","authType":"","x":510,"y":1200,"wires":[["f0314ca4.7e583","2ea4722d.3cdb7e"]]},{"id":"f0314ca4.7e583","type":"change","z":"c8d3d606.44ee88","name":"ANLAGENSTATUS","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"ANLAGENSTATUS","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":1180,"wires":[["b81c86dd.1db038"]]},{"id":"cd05df22.ae818","type":"html","z":"c8d3d606.44ee88","name":"Parse value","property":"payload","outproperty":"payload","tag":"","ret":"text","as":"single","x":1550,"y":1220,"wires":[["38b8abeb.f01794","cae2ec75.83d69","8520602e.3957e"]]},{"id":"297a7b.3bc52586","type":"template","z":"c8d3d606.44ee88","name":"Build selector","field":"select","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"table:contains('{{selectValue}}') td.key","output":"str","x":1480,"y":1160,"wires":[["cd05df22.ae818"]]},{"id":"38b8abeb.f01794","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":1910,"y":1200,"wires":[]},{"id":"2ea4722d.3cdb7e","type":"change","z":"c8d3d606.44ee88","name":"BETRIEBSSTATUS","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"BETRIEBSSTATUS","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":1220,"wires":[["b81c86dd.1db038"]]},{"id":"eab83bf9.5f1a38","type":"change","z":"c8d3d606.44ee88","name":"VORLAUFTEMP.","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"VORLAUFTEMP.","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":280,"wires":[["92417ca5.d3612"]]},{"id":"d8530238.c600b","type":"change","z":"c8d3d606.44ee88","name":"RÜCKLAUFTEMP.","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"RÜCKLAUFTEMP.","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":320,"wires":[["92417ca5.d3612"]]},{"id":"f7b904e2.6aa648","type":"change","z":"c8d3d606.44ee88","name":"TAUPUNKTTEMPERATUR HK1","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"TAUPUNKTTEMPERATUR HK1","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":810,"y":360,"wires":[["92417ca5.d3612"]]},{"id":"2910e8c0.2f7f88","type":"http request","z":"c8d3d606.44ee88","name":"Get WÄRMEPUMPE","method":"GET","ret":"txt","paytoqs":false,"url":"http://servicewelt.netzwelt/?s=1,1","tls":"","persist":false,"proxy":"","authType":"","x":500,"y":840,"wires":[["29934dc5.973a72"]]},{"id":"83306588.424498","type":"delay","z":"c8d3d606.44ee88","name":"","pauseType":"delay","timeout":"1","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"second","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":false,"x":400,"y":780,"wires":[["2910e8c0.2f7f88"]]},{"id":"b0c51e1b.1869e","type":"delay","z":"c8d3d606.44ee88","name":"","pauseType":"delay","timeout":"2","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"second","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":false,"x":400,"y":1140,"wires":[["e0f2760.9462f88"]]},{"id":"29934dc5.973a72","type":"change","z":"c8d3d606.44ee88","name":"FORTLUFT IST LÜFTERDREHZAHL","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"FORTLUFT IST LÜFTERDREHZAHL","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":830,"y":880,"wires":[["417c2a5d.9d0534"]]},{"id":"fb3d63f.4cc45a","type":"comment","z":"c8d3d606.44ee88","name":"Boolean-State Measurements","info":"","x":1140,"y":1120,"wires":[]},{"id":"8b6a4625.418a68","type":"comment","z":"c8d3d606.44ee88","name":"0: state not set, 1: state set, name as location","info":"","x":1790,"y":1140,"wires":[]},{"id":"b81c86dd.1db038","type":"change","z":"c8d3d606.44ee88","name":"Measure 'state'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"state","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"value","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1100,"y":1160,"wires":[["297a7b.3bc52586"]]},{"id":"cae2ec75.83d69","type":"function","z":"c8d3d606.44ee88","name":"Set boolean states","func":"//node.warn(\"Process new msg!\")\n\nif (msg.payload.length === undefined) {\n    node.error(\"No array passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar type = msg.selectValue;\nvar type_lastmsg = context.get(\"lastmsg_\"+type) || new Date();\ncontext.set(\"lastmsg_\"+type, new Date());\n\nvar dict = {};\n\nif ( type == \"ENERGIEMANAGEMENT\" ) {\n    // INFO - ANLAGE - ENERGIEMANAGEMENT\n    dict = {\n      \"EMI-OK\": 0,\n      \"EMI-ACTIVE-COMFORT\": 0,\n      \"EMI-ACTIVE-HIGH\": 0\n    };\n} else if ( type == \"ANLAGENSTATUS\" ) {\n    // DIAGNOSE - STATUS - ANLAGENSTATUS\n    dict = {\n      \"EVU-SPERRE\": 0,\n      \"OFEN / KAMIN\": 0\n    };\n} else if ( type == \"BETRIEBSSTATUS\" ) {\n    // DIAGNOSE - STATUS - BETRIEBSSTATUS\n    dict = {\n      \"SCHALTPROGRAMM AKTIV\": 0,\n      \"VERDICHTER\": 0,\n      \"KÜHLEN\": 0,\n      \"FILTERWECHSEL\": 0,\n      \"HEIZKREISPUMPE\": 0,\n      //\"EVU-SPERRE\": 0,\n      \"WARMWASSERBEREITUNG\": 0,\n      \"HEIZEN\": 0,\n      \"ELEKTRISCHE NACHERWÄRMUNG\": 0,\n      \"ABTAUEN VERDAMPFER\": 0\n    };\n}\n\nnode.log(\"Test log\")\n//node.warn(\"Payload: \" + msg.payload.toString())\n\n// Get new states\nfor(var pkey in msg.payload) {\n    //node.warn(\"Handle: \" + msg.payload[pkey].toString())\n    key = msg.payload[pkey];\n    \n    if (!(key in dict)) {\n        node.status({fill:\"red\",shape:\"ring\",text:\"Unknown state: \"+key+ \" (\"+type+\")\"});\n        node.warn(\"New state '\" + key + \"' for '\" + type + \"'!\")\n        dict[key] = 0\n    }\n\n    //node.warn(\"Status of '\" + key + \"' changed to 1\")\n    dict[key] = 1;\n}\n\n// Check lastmsg\nvar now = new Date();\nvar duration = 1500;\n/*var lastmsg_energy    = context.get(\"lastmsg_ENERGIEMANAGEMENT\")\nif ( duration < (now - lastmsg_energy) ) {\n    node.warn(\"ENERGIEMANAGEMENT MSG required\")\n}\nvar lastmsg_unit      = context.get(\"lastmsg_ANLAGENSTATUS\")\nif ( duration < (now - lastmsg_unit) ) {\n    node.warn(\"ANLAGENSTATUS MSG required\")\n}*/\nvar lastmsg_operation = context.get(\"lastmsg_BETRIEBSSTATUS\")\nif ( duration < (now - lastmsg_operation) ) {\n    node.warn(\"BETRIEBSSTATUS MSG required\")\n}\n\nmsg.payload = dict\n\nreturn msg;","outputs":1,"noerr":0,"x":1750,"y":1300,"wires":[["8401befc.f782","db3d84c6.c74b88","ebee3763.82f678"]]},{"id":"8520602e.3957e","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":1890,"y":1240,"wires":[]},{"id":"8401befc.f782","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":2090,"y":1280,"wires":[]},{"id":"8a927115.97ed8","type":"change","z":"c8d3d606.44ee88","name":"VOLUMENSTROM","rules":[{"t":"set","p":"selectValue","pt":"msg","to":"VOLUMENSTROM","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":770,"y":660,"wires":[["1d8e6b40.aa8015"]]},{"id":"b4031643.5dfc38","type":"comment","z":"c8d3d606.44ee88","name":"Volume Flow Measurements","info":"","x":1140,"y":620,"wires":[]},{"id":"1d8e6b40.aa8015","type":"change","z":"c8d3d606.44ee88","name":"Measure to 'volume_flow'","rules":[{"t":"set","p":"measurement","pt":"msg","to":"volume_flow","tot":"str"},{"t":"set","p":"unit","pt":"msg","to":"litre_per_min","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":1130,"y":660,"wires":[["57a052eb.ceb21c"]]},{"id":"94da35e9.0f5428","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":2170,"y":1340,"wires":[]},{"id":"4ffc5ac5.5e1884","type":"influxdb out","z":"c8d3d606.44ee88","influxdb":"d753f9e4.930f78","name":"Store to InfluxDB","measurement":"","precision":"","retentionPolicy":"","x":2190,"y":1380,"wires":[]},{"id":"db3d84c6.c74b88","type":"debug","z":"c8d3d606.44ee88","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":2070,"y":1240,"wires":[]},{"id":"ebee3763.82f678","type":"function","z":"c8d3d606.44ee88","name":"Format for InfluxDB","func":"if (typeof msg.payload !== 'object' || msg.payload === null || msg.payload.length === 0) {\n    node.error(\"No object passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar named_fields = {};\nvar named_tags = {}\n\nfor(var key in msg.payload) {\n    named_fields[key.toLowerCase()] = msg.payload[key];\n    //node.error(\"new_payload: \" + JSON.stringify(new_payload));\n}\n\nnamed_tags['location'] = msg.selectValue;\n\nmsg.payload = [named_fields, named_tags]\n\nreturn msg;","outputs":1,"noerr":0,"x":1970,"y":1380,"wires":[["94da35e9.0f5428","4ffc5ac5.5e1884"]]},{"id":"3d57c91f.bdd2d6","type":"mqtt-broker","z":"","name":"Mosquitto","broker":"jarvis.netzwelt","port":"1883","clientid":"node-red","usetls":false,"compatmode":false,"keepalive":"60","cleansession":true,"birthTopic":"","birthQos":"0","birthPayload":"","closeTopic":"","closeQos":"0","closePayload":"","willTopic":"","willQos":"0","willPayload":""},{"id":"d753f9e4.930f78","type":"influxdb","z":"","hostname":"jarvis.netzwelt","port":"8086","protocol":"http","database":"measure","name":"","usetls":false,"tls":""}]
+[
+    {
+        "id": "c8d3d606.44ee88",
+        "type": "tab",
+        "label": "Stiebel Servicewelt",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e6eb846f.f97488",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get INFO > ANLAGE",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://servicewelt.netzwelt/?s=1,0",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "10195ff0.b3b2d",
+                "96e40e4.47f48f",
+                "3a7da85a.2b5ca8",
+                "bebfe889.858e88",
+                "1992c214.2b5abe",
+                "7318cb2d.09aa44",
+                "6a68547c.7f18cc",
+                "cb250045.8b1ef",
+                "9cd9fb34.df97d8",
+                "a1f4e3b.751e32",
+                "eab83bf9.5f1a38",
+                "d8530238.c600b",
+                "f7b904e2.6aa648",
+                "8a927115.97ed8"
+            ]
+        ]
+    },
+    {
+        "id": "9f4a9a89.64cbb8",
+        "type": "inject",
+        "z": "c8d3d606.44ee88",
+        "name": "Make request",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "e6eb846f.f97488",
+                "b0c51e1b.1869e",
+                "83306588.424498"
+            ]
+        ]
+    },
+    {
+        "id": "10195ff0.b3b2d",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "AUSSENTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "AUSSENTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 140,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "96e40e4.47f48f",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMISTTEMP. HK1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMISTTEMP. HK1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 200,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "3a7da85a.2b5ca8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMSOLLTEMP. HK1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMSOLLTEMP. HK1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 240,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "71430440.8db5ec",
+        "type": "influxdb out",
+        "z": "c8d3d606.44ee88",
+        "influxdb": "d753f9e4.930f78",
+        "name": "Store to InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 2090,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "bebfe889.858e88",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WW-ISTTEMP.",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WW-ISTTEMP.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 420,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "1992c214.2b5abe",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WW-SOLLTEMP.",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WW-SOLLTEMP.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 460,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "cb250045.8b1ef",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ZULUFT IST LÜFTERDREHZAHL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ZULUFT IST LÜFTERDREHZAHL",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 740,
+        "wires": [
+            [
+                "417c2a5d.9d0534"
+            ]
+        ]
+    },
+    {
+        "id": "9cd9fb34.df97d8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ABLUFT IST LÜFTERDREHZAHL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ABLUFT IST LÜFTERDREHZAHL",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 780,
+        "wires": [
+            [
+                "417c2a5d.9d0534"
+            ]
+        ]
+    },
+    {
+        "id": "7318cb2d.09aa44",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMFEUCHTE HK1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMFEUCHTE HK1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 540,
+        "wires": [
+            [
+                "1de83692.513bb9"
+            ]
+        ]
+    },
+    {
+        "id": "6a68547c.7f18cc",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZSTUFE",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZSTUFE",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 1000,
+        "wires": [
+            [
+                "7d6f91e3.43462"
+            ]
+        ]
+    },
+    {
+        "id": "1de83692.513bb9",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'humidity'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "humidity",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "percent",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1110,
+        "y": 540,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "7ecb2958.0669f8",
+        "type": "html",
+        "z": "c8d3d606.44ee88",
+        "name": "Parse value",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "",
+        "ret": "text",
+        "as": "single",
+        "x": 1530,
+        "y": 660,
+        "wires": [
+            [
+                "c14c91d0.8eb1"
+            ]
+        ]
+    },
+    {
+        "id": "57a052eb.ceb21c",
+        "type": "template",
+        "z": "c8d3d606.44ee88",
+        "name": "Build selector",
+        "field": "select",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "tr td:contains('{{selectValue}}') + td",
+        "output": "str",
+        "x": 1480,
+        "y": 600,
+        "wires": [
+            [
+                "7ecb2958.0669f8"
+            ]
+        ]
+    },
+    {
+        "id": "c14c91d0.8eb1",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Convert to number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substringBefore(payload[0], ' ')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": ",",
+                "fromt": "str",
+                "to": ".",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1590,
+        "y": 720,
+        "wires": [
+            [
+                "d6fde7e8.f3ed58",
+                "ed277574.f70b58"
+            ]
+        ]
+    },
+    {
+        "id": "d6fde7e8.f3ed58",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Format for InfluxDB",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t   {\t       $string(msg.unit): $number(msg.payload)\t   },\t   {\t       \"location\": $string($lowercase(msg.selectValue))\t   }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1850,
+        "y": 680,
+        "wires": [
+            [
+                "71430440.8db5ec"
+            ]
+        ]
+    },
+    {
+        "id": "2dc7bfbf.91831",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "Multistate Measurements",
+        "info": "",
+        "x": 1130,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "92417ca5.d3612",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'temperature'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "temperature",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "celsius",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 220,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "417c2a5d.9d0534",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'frequency'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "frequency",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "hertz",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 760,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "7d6f91e3.43462",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'state'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "state",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "value",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1000,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "a1f4e3b.751e32",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ENERGIEMANAGEMENT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ENERGIEMANAGEMENT",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 1140,
+        "wires": [
+            [
+                "b81c86dd.1db038"
+            ]
+        ]
+    },
+    {
+        "id": "e0f2760.9462f88",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get DIAGNOSE > STATUS",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://servicewelt/?s=2,0",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 480,
+        "y": 1200,
+        "wires": [
+            [
+                "2ea4722d.3cdb7e",
+                "f0314ca4.7e583"
+            ]
+        ]
+    },
+    {
+        "id": "f0314ca4.7e583",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ANLAGENSTATUS",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ANLAGENSTATUS",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 1180,
+        "wires": [
+            [
+                "b81c86dd.1db038"
+            ]
+        ]
+    },
+    {
+        "id": "cd05df22.ae818",
+        "type": "html",
+        "z": "c8d3d606.44ee88",
+        "name": "Parse value",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "",
+        "ret": "text",
+        "as": "single",
+        "x": 1550,
+        "y": 1220,
+        "wires": [
+            [
+                "38b8abeb.f01794",
+                "cae2ec75.83d69",
+                "8520602e.3957e"
+            ]
+        ]
+    },
+    {
+        "id": "297a7b.3bc52586",
+        "type": "template",
+        "z": "c8d3d606.44ee88",
+        "name": "Build selector",
+        "field": "select",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "table:contains('{{selectValue}}') td.key",
+        "output": "str",
+        "x": 1480,
+        "y": 1160,
+        "wires": [
+            [
+                "cd05df22.ae818"
+            ]
+        ]
+    },
+    {
+        "id": "38b8abeb.f01794",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1910,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "2ea4722d.3cdb7e",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "BETRIEBSSTATUS",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "BETRIEBSSTATUS",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 1220,
+        "wires": [
+            [
+                "b81c86dd.1db038"
+            ]
+        ]
+    },
+    {
+        "id": "eab83bf9.5f1a38",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "VORLAUFTEMP.",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "VORLAUFTEMP.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 280,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "d8530238.c600b",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RÜCKLAUFTEMP.",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RÜCKLAUFTEMP.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "f7b904e2.6aa648",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "TAUPUNKTTEMPERATUR HK1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "TAUPUNKTTEMPERATUR HK1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 360,
+        "wires": [
+            [
+                "92417ca5.d3612"
+            ]
+        ]
+    },
+    {
+        "id": "2910e8c0.2f7f88",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get INFO > WÄRMEPUMPE",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://servicewelt.netzwelt/?s=1,1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 480,
+        "y": 840,
+        "wires": [
+            [
+                "29934dc5.973a72",
+                "e5893330.20c8b",
+                "86d5de7.60a202"
+            ]
+        ]
+    },
+    {
+        "id": "83306588.424498",
+        "type": "delay",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 340,
+        "y": 780,
+        "wires": [
+            [
+                "2910e8c0.2f7f88"
+            ]
+        ]
+    },
+    {
+        "id": "b0c51e1b.1869e",
+        "type": "delay",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 340,
+        "y": 1140,
+        "wires": [
+            [
+                "e0f2760.9462f88"
+            ]
+        ]
+    },
+    {
+        "id": "29934dc5.973a72",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "FORTLUFT IST LÜFTERDREHZAHL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "FORTLUFT IST LÜFTERDREHZAHL",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 820,
+        "wires": [
+            [
+                "417c2a5d.9d0534"
+            ]
+        ]
+    },
+    {
+        "id": "fb3d63f.4cc45a",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "Boolean-State Measurements",
+        "info": "",
+        "x": 1140,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "8b6a4625.418a68",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "0: state not set, 1: state set, name as location",
+        "info": "",
+        "x": 1790,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "b81c86dd.1db038",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'state'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "state",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "value",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1160,
+        "wires": [
+            [
+                "297a7b.3bc52586"
+            ]
+        ]
+    },
+    {
+        "id": "cae2ec75.83d69",
+        "type": "function",
+        "z": "c8d3d606.44ee88",
+        "name": "Set boolean states",
+        "func": "//node.warn(\"Process new msg!\")\n\nif (msg.payload.length === undefined) {\n    node.error(\"No array passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar type = msg.selectValue;\nvar type_lastmsg = context.get(\"lastmsg_\"+type) || new Date();\ncontext.set(\"lastmsg_\"+type, new Date());\n\nvar dict = {};\n\nif ( type == \"ENERGIEMANAGEMENT\" ) {\n    // INFO - ANLAGE - ENERGIEMANAGEMENT\n    dict = {\n      \"EMI-OK\": 0,\n      \"EMI-ACTIVE-COMFORT\": 0,\n      \"EMI-ACTIVE-HIGH\": 0\n    };\n} else if ( type == \"ANLAGENSTATUS\" ) {\n    // DIAGNOSE - STATUS - ANLAGENSTATUS\n    dict = {\n      \"EVU-SPERRE A\": 0,\n      \"OFEN-KAMIN\": 0,\n      \"ABTAUEN VERDAMPFER A\": 0,\n      \"ABTAUEN LL-WT\": 0\n    };\n} else if ( type == \"BETRIEBSSTATUS\" ) {\n    // DIAGNOSE - STATUS - BETRIEBSSTATUS\n    dict = {\n      \"SCHALTPROGRAMM AKTIV\": 0,\n      \"VERDICHTER\": 0,\n      \"KÜHLEN\": 0,\n      \"FILTERWECHSEL\": 0,\n      \"HEIZKREISPUMPE\": 0,\n      \"EVU-SPERRE B\": 0,\n      \"WARMWASSERBEREITUNG\": 0,\n      \"HEIZEN\": 0,\n      \"ELEKTRISCHE NACHERWÄRMUNG\": 0,\n      \"ABTAUEN VERDAMPFER B\": 0,\n      \"SERVICE\": 0\n    };\n}\n\nnode.log(\"Test log\")\n//node.warn(\"Payload: \" + msg.payload.toString())\n\n// Get new states\nfor(var pkey in msg.payload) {\n    //node.warn(\"Handle: \" + msg.payload[pkey].toString())\n    key = msg.payload[pkey];\n    \n    // Correct certain keys\n    if (key == \"OFEN / KAMIN\")\n        key = \"OFEN-KAMIN\";\n    if (key == \"ABTAUEN VERDAMPFER\" || key == \"EVU-SPERRE\")\n    {\n        if (type == \"ANLAGENSTATUS\")\n            key = key + \" A\";\n        else if (type == \"BETRIEBSSTATUS\")\n            key = key + \" B\";\n    }\n    \n    if (!(key in dict)) {\n        node.status({fill:\"red\",shape:\"ring\",text:\"Unknown state: \"+key+ \" (\"+type+\")\"});\n        node.warn(\"New state '\" + key + \"' for '\" + type + \"'!\")\n        dict[key] = 0\n    }\n\n    //node.warn(\"Status of '\" + key + \"' changed to 1\")\n    dict[key] = 1;\n}\n\n// Check lastmsg\n/*var now = new Date();\nvar duration = 1500;\nvar lastmsg_energy    = context.get(\"lastmsg_ENERGIEMANAGEMENT\")\nif ( duration < (now - lastmsg_energy) ) {\n    node.warn(\"ENERGIEMANAGEMENT MSG required\")\n}\nvar lastmsg_unit      = context.get(\"lastmsg_ANLAGENSTATUS\")\nif ( duration < (now - lastmsg_unit) ) {\n    node.warn(\"ANLAGENSTATUS MSG required\")\n}\nvar lastmsg_operation = context.get(\"lastmsg_BETRIEBSSTATUS\")\nif ( duration < (now - lastmsg_operation) ) {\n    node.warn(\"BETRIEBSSTATUS MSG required\")\n}*/\n\nmsg.payload = dict\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1750,
+        "y": 1300,
+        "wires": [
+            [
+                "ebee3763.82f678",
+                "8401befc.f782"
+            ]
+        ]
+    },
+    {
+        "id": "8520602e.3957e",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1890,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "8a927115.97ed8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "VOLUMENSTROM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "VOLUMENSTROM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 660,
+        "wires": [
+            [
+                "1d8e6b40.aa8015"
+            ]
+        ]
+    },
+    {
+        "id": "1d8e6b40.aa8015",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'volume_flow'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "volume_flow",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "litre_per_min",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 660,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "4ffc5ac5.5e1884",
+        "type": "influxdb out",
+        "z": "c8d3d606.44ee88",
+        "influxdb": "d753f9e4.930f78",
+        "name": "Store to InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 2190,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "ebee3763.82f678",
+        "type": "function",
+        "z": "c8d3d606.44ee88",
+        "name": "Format for InfluxDB",
+        "func": "if (typeof msg.payload !== 'object' || msg.payload === null || msg.payload.length === 0) {\n    node.error(\"No object passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar named_fields = {};\nvar named_tags = {}\n\nfor(var key in msg.payload) {\n    named_fields[key.toLowerCase()] = msg.payload[key];\n    //node.error(\"new_payload: \" + JSON.stringify(new_payload));\n}\n\nnamed_tags['location'] = msg.selectValue;\n\nmsg.payload = [named_fields, named_tags]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1970,
+        "y": 1380,
+        "wires": [
+            [
+                "4ffc5ac5.5e1884"
+            ]
+        ]
+    },
+    {
+        "id": "8401befc.f782",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 2090,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "ff9f920.872f37",
+        "type": "link out",
+        "z": "c8d3d606.44ee88",
+        "name": "To HA MQTT",
+        "links": [
+            "7a0c86bf.55af98"
+        ],
+        "x": 2055,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "e5893330.20c8b",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "P HEIZUNG TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "P HEIZUNG TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 860,
+        "wires": [
+            [
+                "b1589ec0.c363f"
+            ]
+        ]
+    },
+    {
+        "id": "86d5de7.60a202",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "P WW TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "P WW TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 900,
+        "wires": [
+            [
+                "b1589ec0.c363f"
+            ]
+        ]
+    },
+    {
+        "id": "b1589ec0.c363f",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'energy' in 'kWh'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "energy",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "kWh",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 860,
+        "wires": [
+            [
+                "57a052eb.ceb21c"
+            ]
+        ]
+    },
+    {
+        "id": "ed277574.f70b58",
+        "type": "function",
+        "z": "c8d3d606.44ee88",
+        "name": "HA MQTT Set device details",
+        "func": "// DEFAULT SETTINGS\nmsg.device = {\n    \"type\": \"heatpump\",\n\n    // DEVICE INFORMATION\n    \"name\": \"Lüftungsintegralsystem\",\n    \"model\": \"LWZ504E\",\n    \"manufacturer\": \"Stiebel Eltron\",\n    \"connections\": [['mac', '02:5b:26:a8:dc:12']],\n    //device_identifiers = [['serial', '233514 9029128631']];\n    \"identifiers\": \"233514 9029128631\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1880,
+        "y": 780,
+        "wires": [
+            [
+                "ff9f920.872f37"
+            ]
+        ]
+    },
+    {
+        "id": "d753f9e4.930f78",
+        "type": "influxdb",
+        "hostname": "jarvis.netzwelt",
+        "port": "8086",
+        "protocol": "http",
+        "database": "measure",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x"
+    }
+]
