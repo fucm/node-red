@@ -14,12 +14,12 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://servicewelt.netzwelt/?s=1,0",
+        "url": "http://{{{servicewelt}}}/?s=1,0",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 460,
+        "x": 560,
         "y": 420,
         "wires": [
             [
@@ -36,7 +36,8 @@
                 "eab83bf9.5f1a38",
                 "d8530238.c600b",
                 "f7b904e2.6aa648",
-                "8a927115.97ed8"
+                "8a927115.97ed8",
+                "ebd08c6d.b9ae5"
             ]
         ]
     },
@@ -52,13 +53,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 140,
-        "y": 780,
+        "x": 100,
+        "y": 720,
         "wires": [
             [
-                "e6eb846f.f97488",
-                "b0c51e1b.1869e",
-                "83306588.424498"
+                "18515990.fb7df6"
             ]
         ]
     },
@@ -81,7 +80,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
+        "x": 890,
         "y": 140,
         "wires": [
             [
@@ -108,7 +107,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 780,
+        "x": 880,
         "y": 200,
         "wires": [
             [
@@ -135,7 +134,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
+        "x": 890,
         "y": 240,
         "wires": [
             [
@@ -152,7 +151,7 @@
         "measurement": "",
         "precision": "",
         "retentionPolicy": "",
-        "x": 2090,
+        "x": 2190,
         "y": 680,
         "wires": []
     },
@@ -175,7 +174,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
+        "x": 860,
         "y": 420,
         "wires": [
             [
@@ -202,7 +201,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 460,
         "wires": [
             [
@@ -229,7 +228,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 820,
+        "x": 920,
         "y": 740,
         "wires": [
             [
@@ -256,7 +255,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 820,
+        "x": 920,
         "y": 780,
         "wires": [
             [
@@ -283,7 +282,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 780,
+        "x": 880,
         "y": 540,
         "wires": [
             [
@@ -310,7 +309,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 850,
         "y": 1000,
         "wires": [
             [
@@ -344,7 +343,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1110,
+        "x": 1210,
         "y": 540,
         "wires": [
             [
@@ -362,7 +361,7 @@
         "tag": "",
         "ret": "text",
         "as": "single",
-        "x": 1530,
+        "x": 1630,
         "y": 660,
         "wires": [
             [
@@ -381,7 +380,7 @@
         "syntax": "mustache",
         "template": "tr td:contains('{{selectValue}}') + td",
         "output": "str",
-        "x": 1480,
+        "x": 1580,
         "y": 600,
         "wires": [
             [
@@ -424,7 +423,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1590,
+        "x": 1690,
         "y": 720,
         "wires": [
             [
@@ -452,23 +451,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1850,
+        "x": 1950,
         "y": 680,
         "wires": [
             [
                 "71430440.8db5ec"
             ]
         ]
-    },
-    {
-        "id": "2dc7bfbf.91831",
-        "type": "comment",
-        "z": "c8d3d606.44ee88",
-        "name": "Multistate Measurements",
-        "info": "",
-        "x": 1130,
-        "y": 960,
-        "wires": []
     },
     {
         "id": "92417ca5.d3612",
@@ -496,7 +485,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1120,
+        "x": 1220,
         "y": 220,
         "wires": [
             [
@@ -530,7 +519,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1120,
+        "x": 1220,
         "y": 760,
         "wires": [
             [
@@ -542,7 +531,7 @@
         "id": "7d6f91e3.43462",
         "type": "change",
         "z": "c8d3d606.44ee88",
-        "name": "Measure 'state'",
+        "name": "Measure multi-'state'",
         "rules": [
             {
                 "t": "set",
@@ -564,7 +553,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1100,
+        "x": 1220,
         "y": 1000,
         "wires": [
             [
@@ -591,7 +580,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
+        "x": 890,
         "y": 1140,
         "wires": [
             [
@@ -607,12 +596,12 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://servicewelt/?s=2,0",
+        "url": "http://{{{servicewelt}}}/?s=2,0",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 480,
+        "x": 580,
         "y": 1200,
         "wires": [
             [
@@ -640,7 +629,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 1180,
         "wires": [
             [
@@ -658,7 +647,7 @@
         "tag": "",
         "ret": "text",
         "as": "single",
-        "x": 1550,
+        "x": 1650,
         "y": 1220,
         "wires": [
             [
@@ -679,7 +668,7 @@
         "syntax": "mustache",
         "template": "table:contains('{{selectValue}}') td.key",
         "output": "str",
-        "x": 1480,
+        "x": 1580,
         "y": 1160,
         "wires": [
             [
@@ -698,7 +687,7 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1910,
+        "x": 2010,
         "y": 1200,
         "wires": []
     },
@@ -721,7 +710,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 1220,
         "wires": [
             [
@@ -748,7 +737,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 280,
         "wires": [
             [
@@ -775,7 +764,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 320,
         "wires": [
             [
@@ -802,7 +791,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 810,
+        "x": 910,
         "y": 360,
         "wires": [
             [
@@ -818,12 +807,12 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://servicewelt.netzwelt/?s=1,1",
+        "url": "http://{{{servicewelt}}}/?s=1,1",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 480,
+        "x": 580,
         "y": 840,
         "wires": [
             [
@@ -848,7 +837,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 340,
+        "x": 420,
         "y": 780,
         "wires": [
             [
@@ -871,7 +860,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 340,
+        "x": 420,
         "y": 1140,
         "wires": [
             [
@@ -898,7 +887,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 830,
+        "x": 930,
         "y": 820,
         "wires": [
             [
@@ -907,22 +896,12 @@
         ]
     },
     {
-        "id": "fb3d63f.4cc45a",
-        "type": "comment",
-        "z": "c8d3d606.44ee88",
-        "name": "Boolean-State Measurements",
-        "info": "",
-        "x": 1140,
-        "y": 1120,
-        "wires": []
-    },
-    {
         "id": "8b6a4625.418a68",
         "type": "comment",
         "z": "c8d3d606.44ee88",
         "name": "0: state not set, 1: state set, name as location",
         "info": "",
-        "x": 1790,
+        "x": 1890,
         "y": 1140,
         "wires": []
     },
@@ -930,7 +909,7 @@
         "id": "b81c86dd.1db038",
         "type": "change",
         "z": "c8d3d606.44ee88",
-        "name": "Measure 'state'",
+        "name": "Measure boolean-'state'",
         "rules": [
             {
                 "t": "set",
@@ -952,7 +931,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1100,
+        "x": 1230,
         "y": 1160,
         "wires": [
             [
@@ -965,12 +944,12 @@
         "type": "function",
         "z": "c8d3d606.44ee88",
         "name": "Set boolean states",
-        "func": "//node.warn(\"Process new msg!\")\n\nif (msg.payload.length === undefined) {\n    node.error(\"No array passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar type = msg.selectValue;\nvar type_lastmsg = context.get(\"lastmsg_\"+type) || new Date();\ncontext.set(\"lastmsg_\"+type, new Date());\n\nvar dict = {};\n\nif ( type == \"ENERGIEMANAGEMENT\" ) {\n    // INFO - ANLAGE - ENERGIEMANAGEMENT\n    dict = {\n      \"EMI-OK\": 0,\n      \"EMI-ACTIVE-COMFORT\": 0,\n      \"EMI-ACTIVE-HIGH\": 0\n    };\n} else if ( type == \"ANLAGENSTATUS\" ) {\n    // DIAGNOSE - STATUS - ANLAGENSTATUS\n    dict = {\n      \"EVU-SPERRE A\": 0,\n      \"OFEN-KAMIN\": 0,\n      \"ABTAUEN VERDAMPFER A\": 0,\n      \"ABTAUEN LL-WT\": 0\n    };\n} else if ( type == \"BETRIEBSSTATUS\" ) {\n    // DIAGNOSE - STATUS - BETRIEBSSTATUS\n    dict = {\n      \"SCHALTPROGRAMM AKTIV\": 0,\n      \"VERDICHTER\": 0,\n      \"KÜHLEN\": 0,\n      \"FILTERWECHSEL\": 0,\n      \"HEIZKREISPUMPE\": 0,\n      \"EVU-SPERRE B\": 0,\n      \"WARMWASSERBEREITUNG\": 0,\n      \"HEIZEN\": 0,\n      \"ELEKTRISCHE NACHERWÄRMUNG\": 0,\n      \"ABTAUEN VERDAMPFER B\": 0,\n      \"SERVICE\": 0\n    };\n}\n\nnode.log(\"Test log\")\n//node.warn(\"Payload: \" + msg.payload.toString())\n\n// Get new states\nfor(var pkey in msg.payload) {\n    //node.warn(\"Handle: \" + msg.payload[pkey].toString())\n    key = msg.payload[pkey];\n    \n    // Correct certain keys\n    if (key == \"OFEN / KAMIN\")\n        key = \"OFEN-KAMIN\";\n    if (key == \"ABTAUEN VERDAMPFER\" || key == \"EVU-SPERRE\")\n    {\n        if (type == \"ANLAGENSTATUS\")\n            key = key + \" A\";\n        else if (type == \"BETRIEBSSTATUS\")\n            key = key + \" B\";\n    }\n    \n    if (!(key in dict)) {\n        node.status({fill:\"red\",shape:\"ring\",text:\"Unknown state: \"+key+ \" (\"+type+\")\"});\n        node.warn(\"New state '\" + key + \"' for '\" + type + \"'!\")\n        dict[key] = 0\n    }\n\n    //node.warn(\"Status of '\" + key + \"' changed to 1\")\n    dict[key] = 1;\n}\n\n// Check lastmsg\n/*var now = new Date();\nvar duration = 1500;\nvar lastmsg_energy    = context.get(\"lastmsg_ENERGIEMANAGEMENT\")\nif ( duration < (now - lastmsg_energy) ) {\n    node.warn(\"ENERGIEMANAGEMENT MSG required\")\n}\nvar lastmsg_unit      = context.get(\"lastmsg_ANLAGENSTATUS\")\nif ( duration < (now - lastmsg_unit) ) {\n    node.warn(\"ANLAGENSTATUS MSG required\")\n}\nvar lastmsg_operation = context.get(\"lastmsg_BETRIEBSSTATUS\")\nif ( duration < (now - lastmsg_operation) ) {\n    node.warn(\"BETRIEBSSTATUS MSG required\")\n}*/\n\nmsg.payload = dict\n\nreturn msg;",
+        "func": "//node.warn(\"Process new msg!\")\n\nif (msg.payload.length === undefined) {\n    node.error(\"No array passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar type = msg.selectValue;\nvar type_lastmsg = context.get(\"lastmsg_\"+type) || new Date();\ncontext.set(\"lastmsg_\"+type, new Date());\n\nvar dict = {};\n\nif ( type == \"ENERGIEMANAGEMENT\" ) {\n    // INFO - ANLAGE - ENERGIEMANAGEMENT\n    dict = {\n      \"EMI-NO-CONNECTION\": 0,\n      \"EMI-OK\": 0,\n      \"EMI-ACTIVE-COMFORT\": 0,\n      \"EMI-ACTIVE-HIGH\": 0\n    };\n} else if ( type == \"ANLAGENSTATUS\" ) {\n    // DIAGNOSE - STATUS - ANLAGENSTATUS\n    dict = {\n      \"EVU-SPERRE A\": 0,\n      \"OFEN-KAMIN\": 0,\n      \"ABTAUEN VERDAMPFER A\": 0,\n      \"ABTAUEN LL-WT\": 0\n    };\n} else if ( type == \"BETRIEBSSTATUS\" ) {\n    // DIAGNOSE - STATUS - BETRIEBSSTATUS\n    dict = {\n      \"SCHALTPROGRAMM AKTIV\": 0,\n      \"VERDICHTER\": 0,\n      \"KÜHLEN\": 0,\n      \"FILTERWECHSEL\": 0,\n      \"HEIZKREISPUMPE\": 0,\n      \"EVU-SPERRE B\": 0,\n      \"WARMWASSERBEREITUNG\": 0,\n      \"HEIZEN\": 0,\n      \"ELEKTRISCHE NACHERWÄRMUNG\": 0,\n      \"ABTAUEN VERDAMPFER B\": 0,\n      \"SERVICE\": 0\n    };\n}\n\nnode.log(\"Test log\")\n//node.warn(\"Payload: \" + msg.payload.toString())\n\n// Get new states\nfor(var pkey in msg.payload) {\n    //node.warn(\"Handle: \" + msg.payload[pkey].toString())\n    key = msg.payload[pkey];\n    \n    // Correct certain keys\n    if (key == \"OFEN / KAMIN\")\n        key = \"OFEN-KAMIN\";\n    if (key == \"ABTAUEN VERDAMPFER\" || key == \"EVU-SPERRE\")\n    {\n        if (type == \"ANLAGENSTATUS\")\n            key = key + \" A\";\n        else if (type == \"BETRIEBSSTATUS\")\n            key = key + \" B\";\n    }\n    \n    if (!(key in dict)) {\n        node.status({fill:\"red\",shape:\"ring\",text:\"Unknown state: \"+key+ \" (\"+type+\")\"});\n        node.warn(\"New state '\" + key + \"' for '\" + type + \"'!\")\n        dict[key] = 0\n    }\n\n    //node.warn(\"Status of '\" + key + \"' changed to 1\")\n    dict[key] = 1;\n}\n\n// Check lastmsg\n/*var now = new Date();\nvar duration = 1500;\nvar lastmsg_energy    = context.get(\"lastmsg_ENERGIEMANAGEMENT\")\nif ( duration < (now - lastmsg_energy) ) {\n    node.warn(\"ENERGIEMANAGEMENT MSG required\")\n}\nvar lastmsg_unit      = context.get(\"lastmsg_ANLAGENSTATUS\")\nif ( duration < (now - lastmsg_unit) ) {\n    node.warn(\"ANLAGENSTATUS MSG required\")\n}\nvar lastmsg_operation = context.get(\"lastmsg_BETRIEBSSTATUS\")\nif ( duration < (now - lastmsg_operation) ) {\n    node.warn(\"BETRIEBSSTATUS MSG required\")\n}*/\n\nmsg.payload = dict\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 1750,
+        "x": 1850,
         "y": 1300,
         "wires": [
             [
@@ -990,7 +969,7 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 1890,
+        "x": 1990,
         "y": 1240,
         "wires": []
     },
@@ -1013,7 +992,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 660,
         "wires": [
             [
@@ -1047,7 +1026,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1120,
+        "x": 1220,
         "y": 660,
         "wires": [
             [
@@ -1064,7 +1043,7 @@
         "measurement": "",
         "precision": "",
         "retentionPolicy": "",
-        "x": 2190,
+        "x": 2290,
         "y": 1380,
         "wires": []
     },
@@ -1076,7 +1055,7 @@
         "func": "if (typeof msg.payload !== 'object' || msg.payload === null || msg.payload.length === 0) {\n    node.error(\"No object passed into this function\");\n    node.status({fill:\"red\",shape:\"ring\",text:\"Input error\"});\n}\n\nvar named_fields = {};\nvar named_tags = {}\n\nfor(var key in msg.payload) {\n    named_fields[key.toLowerCase()] = msg.payload[key];\n    //node.error(\"new_payload: \" + JSON.stringify(new_payload));\n}\n\nnamed_tags['location'] = msg.selectValue;\n\nmsg.payload = [named_fields, named_tags]\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1970,
+        "x": 2070,
         "y": 1380,
         "wires": [
             [
@@ -1095,7 +1074,7 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 2090,
+        "x": 2190,
         "y": 1280,
         "wires": []
     },
@@ -1107,7 +1086,7 @@
         "links": [
             "7a0c86bf.55af98"
         ],
-        "x": 2055,
+        "x": 2155,
         "y": 780,
         "wires": []
     },
@@ -1130,7 +1109,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
+        "x": 870,
         "y": 860,
         "wires": [
             [
@@ -1157,7 +1136,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 850,
         "y": 900,
         "wires": [
             [
@@ -1191,7 +1170,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
+        "x": 1230,
         "y": 860,
         "wires": [
             [
@@ -1209,11 +1188,67 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 1880,
+        "x": 1980,
         "y": 780,
         "wires": [
             [
                 "ff9f920.872f37"
+            ]
+        ]
+    },
+    {
+        "id": "18515990.fb7df6",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Set ISGWeb URL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "servicewelt",
+                "pt": "msg",
+                "to": "servicewelt.netzwelt",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 210,
+        "y": 780,
+        "wires": [
+            [
+                "83306588.424498",
+                "b0c51e1b.1869e",
+                "e6eb846f.f97488"
+            ]
+        ]
+    },
+    {
+        "id": "ebd08c6d.b9ae5",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ABLUFTFEUCHTE",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ABLUFTFEUCHTE",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 580,
+        "wires": [
+            [
+                "1de83692.513bb9"
             ]
         ]
     },

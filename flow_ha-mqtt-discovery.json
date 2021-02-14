@@ -200,7 +200,7 @@
         "id": "8e3a10cd.46ed3",
         "type": "debug",
         "z": "3ac159e5.c3d7d6",
-        "name": "",
+        "name": "Print discovery messages",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -209,7 +209,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1680,
+        "x": 1740,
         "y": 760,
         "wires": []
     },
@@ -222,6 +222,31 @@
         "x": 380,
         "y": 720,
         "wires": []
+    },
+    {
+        "id": "920bbe15.752ab",
+        "type": "inject",
+        "z": "3ac159e5.c3d7d6",
+        "name": "Trigger to flush messages to get HA discover new sensors immediately",
+        "props": [
+            {
+                "p": "flush",
+                "v": "true",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1270,
+        "y": 760,
+        "wires": [
+            [
+                "2f1ef196.4559be"
+            ]
+        ]
     },
     {
         "id": "3d57c91f.bdd2d6",

@@ -32,10 +32,25 @@ The setup can easily be extend with the following components to get very nice hi
  3. Setup Node-RED
 	 1. Import the two flows in this repo into Node-RED
 	 2. Without InfluxDB: delete the nodes which prepare and send the data to InfluxDB. You don't need them.
-	 3. Update the node: "HA MQTT Set device details" with your installation details.
-	 4. Verify or add the MQTT broker configuration
-	 5. Deploy the flows
- 4. Check HA for new sensors
+	 3. Update the node "Set ISGWeb URL" in flow "Stiebel Servicewelt"
+	 4. Update the node "HA MQTT Set device details" with your installation details in flow "HA MQTT Discovery".
+	 5. Verify or add the MQTT broker configuration
+	 6. Deploy the flows
+ 4. In HA
+ 	 1. Add the MQTT integration
+ 5. In Node-RED
+	 1. Trigger the node "Trigger to flush messages to get HA discover new sensors immediately" in flow "HA MQTT Discovery".
+ 6. In HA
+	 1.  Check for new sensors
+
+# Resolve issues
+
+In HA, if you did setup MQTT, you can go to "Configuration > Integrations > MQTT > CONFIGURE" and start listening to the topic "homeassistant/sensor/#". You should see a bunch of messages, which start with something like "homeassistant/sensor/...".
+
+If you don't see them, go to node-red again. The debug panel will only show something, if an error occurs or if you did enable debug msg nodes. You can do so in the "HA MQTT Discovery" flow. Then redeploy it and you should soon get some messages showing up in the node-red debug log.
+
+* In case you see the messages, but still do not receive anything in HA, it's probably your MQTT broker config in node-red, which is not working.
+* In case you don't see any messages, copy the debug node in "HA MQTT Discovery" and attach it anywhere earlier in the flow to find if somewhere the messages are flowing.
 
 ## License
 The content of this ``node-red`` repository is licensed under MIT, for more details check LICENSE.
