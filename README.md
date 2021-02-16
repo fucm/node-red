@@ -15,6 +15,7 @@ At minimum you need the following components:
 * STIEBEL ELTRON Internet-Service Gateway [ISG WEB](https://www.stiebel-eltron.com/en/home/products-solutions/renewables/controller_energymanagement/internet_servicegateway/isg_web.html)
 * STIEBEL ELTRON heatpump (compatible). Successfully used devices:
   * LWZ504e
+  * LWZ304
 * [Node-RED](https://nodered.org/), either installed as part of [Home Assistant OS](https://www.home-assistant.io/hassio/installation/) as an Add-on, as a separated docker container or as any other possible deployment option.
 * [MQTT Broker](https://mosquitto.org/), either installed as part of [Home Assistant OS](https://www.home-assistant.io/hassio/installation/) as an Add-on, as a separated docker container or as any other possible deployment option.
 * Network connection bewteen all components
