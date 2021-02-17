@@ -1,0 +1,2109 @@
+[
+    {
+        "id": "c8d3d606.44ee88",
+        "type": "tab",
+        "label": "ServiceWelt Tecalor",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e6eb846f.f97488",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get INFO / ANLAGE",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{servicewelt}}}/?s=1,0",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 440,
+        "y": 420,
+        "wires": [
+            [
+                "4dd06402.1d89fc",
+                "25f6bb6f.89da94",
+                "746db12e.b859a",
+                "21504d97.413162",
+                "a82280ad.24b21",
+                "294d0039.8bbe7",
+                "39bace31.268072",
+                "71cbff5a.25232",
+                "7ce08489.7f9fec",
+                "e1299663.521868",
+                "b7a345f5.fcb9c8",
+                "71f2204f.7fbf4",
+                "92556599.9c1e38",
+                "abc9cbba.0230c8",
+                "2812be23.f40702",
+                "2fd98d58.d598b2",
+                "d717d1a1.e2aa9",
+                "bacebb7f.153218",
+                "b0c0cb65.a36128",
+                "4949c6d6.4a0f38",
+                "dea62c4e.80142",
+                "d8e1f563.7451a8",
+                "b8e3aa7f.f38a38",
+                "b0cbf9a1.e26128"
+            ]
+        ]
+    },
+    {
+        "id": "9f4a9a89.64cbb8",
+        "type": "inject",
+        "z": "c8d3d606.44ee88",
+        "name": "Make request",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "c8899b3b.a14dd8"
+            ]
+        ]
+    },
+    {
+        "id": "ff9f920.872f37",
+        "type": "link out",
+        "z": "c8d3d606.44ee88",
+        "name": "To HA MQTT",
+        "links": [
+            "3ae6a88d.e92dc8"
+        ],
+        "x": 1715,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "16431031.9972a",
+        "type": "function",
+        "z": "c8d3d606.44ee88",
+        "name": "Set login data",
+        "func": "msg.headers={ \n    'Content-Type': 'application/x-www-form-urlencoded'\n};\nmsg.payload = {};\nmsg.payload={ \n    'user': 'user',\n    'pass': 'pass'\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 180,
+        "y": 860,
+        "wires": [
+            [
+                "e6eb846f.f97488",
+                "b6cbc3f3.7164c",
+                "74ec7588.a89a2c",
+                "5596cc85.b30c34"
+            ]
+        ]
+    },
+    {
+        "id": "4dd06402.1d89fc",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "6732c62.3c02138",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "25f6bb6f.89da94",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMTEMPERATUR / ISTTEMPERATUR HK 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMTEMPERATUR",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "ISTTEMPERATUR HK 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 80,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "3ec0425e.f788be",
+        "type": "template",
+        "z": "c8d3d606.44ee88",
+        "name": "Build selector Tecalor",
+        "field": "select",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "tr:contains('{{selectValue}}') ~ tr td:contains('{{selectValue2}}') + td",
+        "output": "str",
+        "x": 1540,
+        "y": 900,
+        "wires": [
+            [
+                "d125b2dc.20cc2"
+            ]
+        ]
+    },
+    {
+        "id": "78d0ca31.9ff094",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'temperature'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "temperature",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "celsius",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 700,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "d125b2dc.20cc2",
+        "type": "html",
+        "z": "c8d3d606.44ee88",
+        "name": "Parse value",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "",
+        "ret": "text",
+        "as": "single",
+        "x": 1530,
+        "y": 940,
+        "wires": [
+            [
+                "14d5748e.1746cb",
+                "366a0c0b.d6dac4"
+            ]
+        ]
+    },
+    {
+        "id": "21504d97.413162",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMTEMPERATUR / RAUMFEUCHTE",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMTEMPERATUR",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "RAUMFEUCHTE",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 160,
+        "wires": [
+            [
+                "697462a2.0077ec"
+            ]
+        ]
+    },
+    {
+        "id": "746db12e.b859a",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMTEMPERATUR / SOLLTEMPERATUR HK 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMTEMPERATUR",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "SOLLTEMPERATUR HK 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 120,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "a82280ad.24b21",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "RAUMTEMPERATUR / TAUPUNKTTEMP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "RAUMTEMPERATUR",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "TAUPUNKTTEMP",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 200,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "14d5748e.1746cb",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Convert to number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$substringBefore(payload[0], ' ')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": ",",
+                "fromt": "str",
+                "to": ".",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1570,
+        "y": 980,
+        "wires": [
+            [
+                "6732c62.3c02138",
+                "69a1c0e6.d6db5"
+            ]
+        ]
+    },
+    {
+        "id": "697462a2.0077ec",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'humidity'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "humidity",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "percent",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 320,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "294d0039.8bbe7",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WARMWASSER / ISTTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WARMWASSER",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "ISTTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "39bace31.268072",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WARMWASSER / SOLLTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WARMWASSER",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "SOLLTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 300,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "71cbff5a.25232",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / AUSSENTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "AUSSENTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 360,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "7ce08489.7f9fec",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / ISTTEMPERATUR HK 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "ISTTEMPERATUR HK 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 400,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "e1299663.521868",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / SOLLTEMPERATUR HK 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "SOLLTEMPERATUR HK 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 440,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "b7a345f5.fcb9c8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / VORLAUFISTTEMPERATUR WP",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VORLAUFISTTEMPERATUR WP",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 480,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "71f2204f.7fbf4",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / VORLAUFISTTEMPERATUR NHZ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VORLAUFISTTEMPERATUR NHZ",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 520,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "92556599.9c1e38",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / VORLAUFISTTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VORLAUFISTTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 560,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "abc9cbba.0230c8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / RÜCKLAUFISTTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "RÜCKLAUFISTTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 600,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "2812be23.f40702",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / FESTWERTSOLLTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "FESTWERTSOLLTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2fd98d58.d598b2",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / PUFFERSOLLTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "PUFFERSOLLTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d717d1a1.e2aa9",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / PUFFERISTTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "PUFFERISTTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 720,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "bacebb7f.153218",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / HEIZUNGSDRUCK",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "HEIZUNGSDRUCK",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 760,
+        "wires": [
+            [
+                "78b5555c.746b0c"
+            ]
+        ]
+    },
+    {
+        "id": "b0c0cb65.a36128",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / VOLUMENSTROM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VOLUMENSTROM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 800,
+        "wires": [
+            [
+                "cc0dd3c.c68133"
+            ]
+        ]
+    },
+    {
+        "id": "4949c6d6.4a0f38",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "HEIZUNG / ANLAGENFROST",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "HEIZUNG",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "ANLAGENFROST",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 840,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "dea62c4e.80142",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "QUELLE / QUELLENTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "QUELLE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "QUELLENTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 900,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "d8e1f563.7451a8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "QUELLE / MIN. QUELLENTEMPERATUR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "QUELLE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "MIN. QUELLENTEMPERATUR",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 940,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "b8e3aa7f.f38a38",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "QUELLE / QUELLENDRUCK",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "QUELLE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "QUELLENDRUCK",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 980,
+        "wires": [
+            [
+                "78b5555c.746b0c"
+            ]
+        ]
+    },
+    {
+        "id": "b0cbf9a1.e26128",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "QUELLE / GRUNDWASSERSTATION",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "QUELLE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "GRUNDWASSERSTATION",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b6cbc3f3.7164c",
+        "type": "delay",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 380,
+        "y": 1060,
+        "wires": [
+            [
+                "2f47588a.4368f8"
+            ]
+        ]
+    },
+    {
+        "id": "2f47588a.4368f8",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get INFO / WÄRMEPUMPE",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{servicewelt}}}/?s=1,1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 460,
+        "y": 1100,
+        "wires": [
+            [
+                "dc92fd7f.dc47c",
+                "611b206.f251ee",
+                "984200db.aaa16",
+                "1a2f254d.97359b",
+                "9724aa2a.fc7868",
+                "e6b1f74f.e4d1b8",
+                "d62380c0.95232",
+                "9499e28c.b1dc9",
+                "4381aa03.3450b4",
+                "705336bc.396418",
+                "32340092.5f3ff"
+            ]
+        ]
+    },
+    {
+        "id": "611b206.f251ee",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LEISTUNGSAUFNAHME / VD HEIZEN TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LEISTUNGSAUFNAHME",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD HEIZEN TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1140,
+        "wires": [
+            [
+                "a9d5cc0f.a4008"
+            ]
+        ]
+    },
+    {
+        "id": "984200db.aaa16",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LEISTUNGSAUFNAHME / VD HEIZEN SUMME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LEISTUNGSAUFNAHME",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD HEIZEN SUMME",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 1180,
+        "wires": [
+            [
+                "a0f13bbf.b5b298"
+            ]
+        ]
+    },
+    {
+        "id": "1a2f254d.97359b",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LEISTUNGSAUFNAHME / VD WARMWASSER TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LEISTUNGSAUFNAHME",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD WARMWASSER TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 1220,
+        "wires": [
+            [
+                "a9d5cc0f.a4008"
+            ]
+        ]
+    },
+    {
+        "id": "9724aa2a.fc7868",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LEISTUNGSAUFNAHME / VD WARMWASSER SUMME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LEISTUNGSAUFNAHME",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD WARMWASSER SUMME",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 1260,
+        "wires": [
+            [
+                "a0f13bbf.b5b298"
+            ]
+        ]
+    },
+    {
+        "id": "cc0dd3c.c68133",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'volume_flow'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "volume_flow",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "litre_per_min",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1250,
+        "y": 800,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "78b5555c.746b0c",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'pressure'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "pressure",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "bar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 760,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "3733711a.546d3e",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'state' (Boolean)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "state",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "value",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1250,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc92fd7f.dc47c",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "PROZESSDATEN / RESTSTILLSTANDZEIT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "PROZESSDATEN",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "RESTSTILLSTANDZEIT",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1080,
+        "wires": [
+            [
+                "973f62a0.15011"
+            ]
+        ]
+    },
+    {
+        "id": "973f62a0.15011",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'time' in 'seconds'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "time",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "second",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 1080,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "a9d5cc0f.a4008",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'energy' in 'kWh'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "energy",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "kWh",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1250,
+        "y": 1140,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "a0f13bbf.b5b298",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'energy' in 'MWh'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "energy",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "MWh",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 1200,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "e6b1f74f.e4d1b8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEMENGE / VD HEIZEN TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEMENGE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD HEIZEN TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 1320,
+        "wires": [
+            [
+                "a9d5cc0f.a4008"
+            ]
+        ]
+    },
+    {
+        "id": "d62380c0.95232",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEMENGE / VD HEIZEN SUMME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEMENGE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD HEIZEN SUMME",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 1360,
+        "wires": [
+            [
+                "a0f13bbf.b5b298"
+            ]
+        ]
+    },
+    {
+        "id": "9499e28c.b1dc9",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEMENGE / VD WARMWASSER TAG",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEMENGE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD WARMWASSER TAG",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1400,
+        "wires": [
+            [
+                "a9d5cc0f.a4008"
+            ]
+        ]
+    },
+    {
+        "id": "4381aa03.3450b4",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEMENGE / VD WARMWASSER SUMME",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEMENGE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD WARMWASSER SUMME",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 1440,
+        "wires": [
+            [
+                "a0f13bbf.b5b298"
+            ]
+        ]
+    },
+    {
+        "id": "705336bc.396418",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LAUFZEIT / VD HEIZEN",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LAUFZEIT",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD HEIZEN",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 1500,
+        "wires": [
+            [
+                "dc35ebc2.6c3b18"
+            ]
+        ]
+    },
+    {
+        "id": "32340092.5f3ff",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "LAUFZEIT / VD WARMWASSER",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "LAUFZEIT",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "VD WARMWASSER",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 1540,
+        "wires": [
+            [
+                "dc35ebc2.6c3b18"
+            ]
+        ]
+    },
+    {
+        "id": "dc35ebc2.6c3b18",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Measure 'time' in 'hours'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "time",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "unit",
+                "pt": "msg",
+                "to": "hour",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 1500,
+        "wires": [
+            [
+                "3ec0425e.f788be"
+            ]
+        ]
+    },
+    {
+        "id": "d4e187c7.05bd18",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get DIAGNOSE / STATUS",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{servicewelt}}}/?s=2,0",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 430,
+        "y": 1540,
+        "wires": [
+            [
+                "a0e29436.c69ef8"
+            ]
+        ]
+    },
+    {
+        "id": "74ec7588.a89a2c",
+        "type": "delay",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 360,
+        "y": 1500,
+        "wires": [
+            [
+                "d4e187c7.05bd18"
+            ]
+        ]
+    },
+    {
+        "id": "a0e29436.c69ef8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "ANLAGE / EVU FREIGABE",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "ANLAGE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "EVU FREIGABE",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 1600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76edb3e0.ee919c",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "TODO: add more when needed, \\n check p.12 manual Tecalor, parse as Boolean",
+        "info": "",
+        "x": 1110,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "1e2cce49.248402",
+        "type": "http request",
+        "z": "c8d3d606.44ee88",
+        "name": "Get DIAGNOSE / ANALYSE",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{servicewelt}}}/?s=2,1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 440,
+        "y": 1660,
+        "wires": [
+            [
+                "48a145e.b18b7bc",
+                "afe7b438.b28648",
+                "f9f59c4d.32655"
+            ]
+        ]
+    },
+    {
+        "id": "5596cc85.b30c34",
+        "type": "delay",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 360,
+        "y": 1620,
+        "wires": [
+            [
+                "1e2cce49.248402"
+            ]
+        ]
+    },
+    {
+        "id": "48a145e.b18b7bc",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEPUMPE / HEISSGAS-IST",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEPUMPE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "HEISSGAS-IST",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 1660,
+        "wires": [
+            [
+                "78d0ca31.9ff094"
+            ]
+        ]
+    },
+    {
+        "id": "afe7b438.b28648",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEPUMPE / DRUCK HD",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEPUMPE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "DRUCK HD",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 1700,
+        "wires": [
+            [
+                "78b5555c.746b0c"
+            ]
+        ]
+    },
+    {
+        "id": "f9f59c4d.32655",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "WÄRMEPUMPE / DRUCK ND",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selectValue",
+                "pt": "msg",
+                "to": "WÄRMEPUMPE",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "selectValue2",
+                "pt": "msg",
+                "to": "DRUCK ND",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 1740,
+        "wires": [
+            [
+                "78b5555c.746b0c"
+            ]
+        ]
+    },
+    {
+        "id": "69a1c0e6.d6db5",
+        "type": "function",
+        "z": "c8d3d606.44ee88",
+        "name": "HA MQTT\\n Set device details",
+        "func": "// DEFAULT SETTINGS\nmsg.device = {\n    \"type\": \"heatpump\",\n\n    // DEVICE INFORMATION\n    \"name\": \"Sole-Warme-Pumpe\",\n    \"model\": \"TTC05\",\n    \"manufacturer\": \"Tecalor/Stiebel Eltron\",\n    \"connections\": [['mac', '02:80:AD:22:D3:A6']],\n    //device_identifiers = [['serial', '233514 9029128631']];\n    \"identifiers\": \"190346 9129/011400\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1590,
+        "y": 1040,
+        "wires": [
+            [
+                "ff9f920.872f37"
+            ]
+        ]
+    },
+    {
+        "id": "aee8648d.fab288",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "Value is 'AUS', how to intepret?",
+        "info": "",
+        "x": 1170,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "366a0c0b.d6dac4",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "e8b19b9c.05edd8",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "TODO: parse as Boolean",
+        "info": "",
+        "x": 1090,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "ff14896.965f078",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "selectValue",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "881e2b82.7636f8",
+        "type": "debug",
+        "z": "c8d3d606.44ee88",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "selectValue2",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "c8899b3b.a14dd8",
+        "type": "change",
+        "z": "c8d3d606.44ee88",
+        "name": "Set ISGWeb URL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "servicewelt",
+                "pt": "msg",
+                "to": "http://192.168.188.100",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 170,
+        "y": 820,
+        "wires": [
+            [
+                "16431031.9972a"
+            ]
+        ]
+    },
+    {
+        "id": "81afd060.bbbcf",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "CHANGE_ME: set actual URL of your ISG Web",
+        "info": "",
+        "x": 460,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "1b737b2a.db2f95",
+        "type": "comment",
+        "z": "c8d3d606.44ee88",
+        "name": "CHANGE_ME: set login data for your ISG Web",
+        "info": "",
+        "x": 450,
+        "y": 860,
+        "wires": []
+    }
+]

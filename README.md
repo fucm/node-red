@@ -16,6 +16,7 @@ At minimum you need the following components:
 * STIEBEL ELTRON heatpump (compatible). Successfully used devices:
   * LWZ504e
   * LWZ304
+  * Tecalor TTC05
 * [Node-RED](https://nodered.org/), either installed as part of [Home Assistant OS](https://www.home-assistant.io/hassio/installation/) as an Add-on, as a separated docker container or as any other possible deployment option.
 * [MQTT Broker](https://mosquitto.org/), either installed as part of [Home Assistant OS](https://www.home-assistant.io/hassio/installation/) as an Add-on, as a separated docker container or as any other possible deployment option.
 * Network connection bewteen all components
@@ -31,7 +32,9 @@ The setup can easily be extend with the following components to get very nice hi
 	 1. Add MQTT integration to HA
 	 2. Make sure HA is able to receive MQTT messages
  3. Setup Node-RED
-	 1. Import the two flows in this repo into Node-RED
+	 1. Import 2 relevant flows in this repo into Node-RED. The default flows
+      are `flow_ha-mqtt-discovery.json` and `flow_stiebel-servicewelt.json`,
+      the `*Tecalor-TTC05.json` flows are for Tecalor TTC05 and compatible devices.
 	 2. Without InfluxDB: delete the nodes which prepare and send the data to InfluxDB. You don't need them.
 	 3. Update the node "Set ISGWeb URL" in flow "Stiebel Servicewelt"
 	 4. Update the node "HA MQTT Set device details" with your installation details in flow "HA MQTT Discovery".
